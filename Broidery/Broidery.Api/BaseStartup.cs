@@ -1,3 +1,5 @@
+using Broidery.Api.DependencyInjection;
+using Broidery.Api.StartupExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,8 @@ namespace Broidery.Api
 
         public void BaseConfigureServices(IServiceCollection services)
         {
+            services.EFCoreConfiguration(new EFCoreConfiguration(Configuration.GetConnectionString("DefaultConnection")));
+            new ServiceCollectionInjector(services).ResolveServices();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Broidery API", Version = "v1" });
