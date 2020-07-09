@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <ItemGroup>
+    <ProjectReference Include="..\Broidery.Interactors\Broidery.Interactors.csproj" />
+    <ProjectReference Include="..\Broidery.DataTransferObjects\Broidery.DataTransferObjects.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon />
