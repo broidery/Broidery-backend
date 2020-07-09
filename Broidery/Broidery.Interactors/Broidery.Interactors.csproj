@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\Broidery.DataAccess\Broidery.DataAccess.csproj" />
+    <ProjectReference Include="..\Broidery.DataTransferObjects\Broidery.DataTransferObjects.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
