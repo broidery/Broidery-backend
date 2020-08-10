@@ -9,6 +9,7 @@ namespace Broidery.Api.DependencyInjection
         public override void RegisterDependencies()
         {
             RegisterInstancePerRequest<AuthenticationInteractor>();
+            RegisterInstancePerRequest<ProductsInteractor>();
         }
     }
 }
