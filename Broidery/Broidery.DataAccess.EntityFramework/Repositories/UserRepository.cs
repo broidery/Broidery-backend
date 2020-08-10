@@ -8,9 +8,9 @@ namespace Broidery.DataAccess.EntityFramework.Repositories
     {
         private readonly BroideryContext context;
 
-        public UserRepository(BroideryContext _context)
+        public UserRepository(BroideryContext context)
         {
-            context = _context;
+            this.context = context;
         }
 
         public async Task<bool> Exist(string token)

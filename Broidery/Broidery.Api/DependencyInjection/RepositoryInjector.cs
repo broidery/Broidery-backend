@@ -10,6 +10,7 @@ namespace Broidery.Api.DependencyInjection
         public override void RegisterDependencies()
         {
             RegisterInstancePerRequest<IUserRepository, UserRepository>();
+            RegisterInstancePerRequest<IProductRepository, ProductRepository>();
         }
     }
 }

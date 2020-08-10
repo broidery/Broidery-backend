@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Broidery.DataTransferObjects.Dtos;
 using Broidery.Interactors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace Broidery.Api.Controllers.Controllers
 {
@@ -26,6 +27,8 @@ namespace Broidery.Api.Controllers.Controllers
         {
             _authenticationInteractor = authenticationInteractor ?? throw new ArgumentNullException(nameof(authenticationInteractor));
         }
+
+        [EnableCors("EnableConnection")]
         [HttpPost("login")]
         public async Task<ActionResult<ILoginResultDto>> Login([FromBody] LoginRequestDto requestDto)
         {
