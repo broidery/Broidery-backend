@@ -24,6 +24,7 @@ namespace Broidery.DataAccess.EntityFramework.Context
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public BroideryContext(DbContextOptions<BroideryContext> options) : base(options) { }
 
@@ -31,6 +32,7 @@ namespace Broidery.DataAccess.EntityFramework.Context
         {
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
         }
 
         public async Task Migrate()
