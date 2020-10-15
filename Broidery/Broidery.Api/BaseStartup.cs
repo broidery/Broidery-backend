@@ -19,6 +19,14 @@ namespace Broidery.Api
 
         public void BaseConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "EnableConnection",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200/*").WithMethods("POST", "GET", "PUT");
+                    });
+            });
             services.EFCoreConfiguration(new EFCoreConfiguration(Configuration.GetConnectionString("DefaultConnection")));
             new ServiceCollectionInjector(services).ResolveServices();
             services.AddSwaggerGen(c =>
@@ -46,8 +54,9 @@ namespace Broidery.Api
             });
 
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
