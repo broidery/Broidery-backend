@@ -15,6 +15,7 @@ namespace Broidery.DataAccess
     {
         Task<IUser> SaveToken(string email, string token);
     }
+
     public interface IProductRepository
     {
         Task<IEnumerable<IProduct>> GetActiveProducts();

@@ -35,6 +35,7 @@ namespace Broidery.DataAccess.EntityFramework.Repositories
             var entity = await context.Products.FirstOrDefaultAsync(f => f.Id == id);
             return entity;
         }
+
         public async Task EditProductState(int id)
         {
 

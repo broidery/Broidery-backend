@@ -4,10 +4,12 @@ using Broidery.DataAccess;
 using Broidery.DataAccess.Entities;
 using Broidery.DataTransferObjects.Dtos;
 
+
 namespace Broidery.Interactors
 {
     public class ProductsInteractor
     {
+
         public class ProductUpdate : IProduct
         {
             public ProductUpdate(ProductRequestDto productRequestDto)
@@ -34,11 +36,13 @@ namespace Broidery.Interactors
         {
             this.productRepository = productRepository;
         }
+
         public async Task<IEnumerable<IProduct>> GetAllProducts()
         {
             var entity = await productRepository.GetAllProducts();
             return entity;
         }
+
         public async Task<IEnumerable<IProduct>> GetAllActiveProducts()
         {
             var entity = await productRepository.GetActiveProducts();

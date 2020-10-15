@@ -18,6 +18,7 @@ namespace Broidery.Api.Controllers.Controllers
             this.productsInteractor = productsInteractor;
         }
 
+
         [EnableCors("EnableConnection")]
         [HttpGet("all-products")]
         public async Task<ActionResult<IEnumerable<IProduct>>> GetAllProducts()
@@ -29,6 +30,7 @@ namespace Broidery.Api.Controllers.Controllers
         [EnableCors("EnableConnection")]
         [HttpGet("all-active-products")]
         public async Task<ActionResult<IEnumerable<IProduct>>> GetActiveAllProducts()
+
         {
             var allProducts = await productsInteractor.GetAllActiveProducts();
             return Ok(allProducts);
@@ -58,6 +60,5 @@ namespace Broidery.Api.Controllers.Controllers
             await productsInteractor.EditProductState(idRequestDto.Id);
             return Ok();
         }
-
     }
 }
