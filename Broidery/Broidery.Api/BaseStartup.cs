@@ -24,7 +24,7 @@ namespace Broidery.Api
                 options.AddPolicy(name: "EnableConnection",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200/*").WithMethods("POST", "GET", "PUT");
+                        builder.WithOrigins("http://localhost:4200/*", "http://192.168.0.135:8081/*").WithMethods("POST", "GET", "PUT");
                     });
             });
             services.EFCoreConfiguration(new EFCoreConfiguration(Configuration.GetConnectionString("DefaultConnection")));
