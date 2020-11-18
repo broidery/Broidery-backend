@@ -1,3 +1,3 @@
 # Broidery-backend
 
-# users anda product storage
+# users and product storage
