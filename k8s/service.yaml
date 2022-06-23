@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: broidery-service
+spec:
+  selector:
+    app: broidery-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+#agregando loadBalancer
+#  clusterIP: 10.107.120.165
+#  type: LoadBalancer
+#status:
+#  loadBalancer:
+#    ingress:
+#    - ip: 192.0.2.127 

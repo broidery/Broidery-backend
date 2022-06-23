@@ -1,0 +1,45 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  broidery-frontend:
+    container_name: broidery-frontend
+    build:
+      context: ./Broidery-frontend/.
+      dockerfile: /Volumes/TOSH-600/Broidery/Broidery-frontend/Dockerfile
+    ports: 
+      - '8080:80'
+    depends_on: 
+      - broideryapidockerstartup  
+  broidery-api:
+    image: broidery-api
+    build:
+      context: .
+      dockerfile: Broidery-backend/Broidery/Broidery.Api.DockerStartup/Dockerfile
+    environment:
+      - DBHOST=mysql-development
+      - ASPNETCORE_ENVIRONMENT=Development  
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    networks:
+      - overlay
+    depends_on:
+      - mysql-development
+  mysql-development:
+    container_name: mysql-development
+    image: mysql:8.0.17
+    restart: always
+    environment:
+      MYSQL_DATABASE: 
+      MYSQL_ROOT_PASSWORD: spi
+      MYSQL_DATABASE: Broidery-api-db
+    ports:
+      - "3308:3306"
+    networks:
+      - overlay  
+    volumes:    
+      - mysqldbdata:/Volumes/TOSH-600/Broidery/mysql
+volumes:
+  mysqldbdata:

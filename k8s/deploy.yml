@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broidery-frontend 
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: broidery-frontend
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: broidery-frontend
+    spec:
+      containers:
+      - name: broidery-front
+        image: spirito/broidery-frontend 
+        ports:
+        - containerPort: 80
