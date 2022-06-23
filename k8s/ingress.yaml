@@ -17,26 +17,6 @@ spec:
             name: broidery-service
             port:
               number: 80
-  - host: prometheus 
-    http:
-      paths:
-      - path: /
-        pathType: Prefix 
-        backend:
-          service:
-            name: prometheus-k8s
-            port:
-              number: 80
-  - host: grafana 
-    http:
-      paths: 
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: grafana 
-            port:
-              number: 80
   - host: argocd
     http:
       paths:
