@@ -40,9 +40,3 @@ spec:
          #- -report-ingress-status
          #- -external-service=nginx-ingress
          #- -enable-leader-election
-        readinessProbe:
-            failureThreshold: 3
-            httpGet:
-                path: /
-                port: 80
-                scheme: HTTP
