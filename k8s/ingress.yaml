@@ -27,7 +27,4 @@ spec:
             name: argocd
             port: 
               number: 80
-status:
-  loadBalancer:
-    ingress:
-    - {}
+status: healthy
