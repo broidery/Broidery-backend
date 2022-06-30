@@ -10,7 +10,7 @@ spec:
   - host: broidery.info 
     http:
       paths:
-      - path: "/*"
+      - path: /
         pathType: ImplementationSpecific 
         backend:
           service:
