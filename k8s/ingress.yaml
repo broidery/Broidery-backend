@@ -27,3 +27,12 @@ spec:
             name: argocd
             port: 
               number: 80
+  - host: prometheus: prometheus
+    http: 
+      paths: /
+      pathType: ImplementationSpecific
+      backend:
+        service: 
+          name: prometheus-server
+          port:
+            number: 80
