@@ -29,10 +29,11 @@ spec:
               number: 80
   - host: prometheus: prometheus
     http: 
-      paths: /
-      pathType: ImplementationSpecific
-      backend:
-        service: 
-          name: prometheus-server
-          port:
-            number: 80
+      paths:
+      - path: /   
+        pathType: ImplementationSpecific
+        backend:
+          service: 
+            name: prometheus-server
+            port:
+              number: 80
