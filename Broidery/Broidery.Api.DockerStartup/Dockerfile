@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic AS base
 WORKDIR /app
-EXPOSE 5001
+EXPOSE 5001 
 EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic AS build
@@ -16,6 +16,6 @@ RUN dotnet publish "Broidery.Api.DockerStartup.csproj" -c Release -o /app/publis
 
 FROM base AS final
 WORKDIR /app
-ENV ASPNETCORE_URLS http://*:5000
+ENV ASPNETCORE_URLS http://*:5001
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Broidery.Api.DockerStartup.dll"]

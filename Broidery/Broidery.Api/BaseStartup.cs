@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Elastic.Apm.NetCoreAll;
 
 namespace Broidery.Api
 {
@@ -37,6 +38,9 @@ namespace Broidery.Api
         }
         public void BaseConfigure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+            app.UseAllElasticApm(Configuration);
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
