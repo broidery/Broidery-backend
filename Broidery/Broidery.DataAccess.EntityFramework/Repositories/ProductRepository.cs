@@ -70,5 +70,18 @@ namespace Broidery.DataAccess.EntityFramework.Repositories
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task AddProduct(IProduct product)
+        {
+            var entity = new Product();
+            entity.Id = product.Id;
+            entity.Image = product.Image;
+            entity.Description = product.Description;
+            entity.Price = product.Price;
+            entity.Composition = product.Composition;
+            entity.IsActive = product.IsActive;
+            context.Products.Add(entity);
+            await context.SaveChangesAsync();
+        }
     }
 }

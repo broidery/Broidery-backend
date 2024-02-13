@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace Broidery.Api
 {
@@ -19,15 +20,21 @@ namespace Broidery.Api
 
         public void BaseConfigureServices(IServiceCollection services)
         {
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "EnableConnection",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200/*", "http://192.168.0.135:8081/*").WithMethods("POST", "GET", "PUT");
+                        builder.WithOrigins(Environment.GetEnvironmentVariable("CORS_URL_1"), Environment.GetEnvironmentVariable("CORS_URL_2"))
+                            .WithMethods("POST", "GET", "PUT", "OPTIONS").AllowAnyHeader();
                     });
             });
-            services.EFCoreConfiguration(new EFCoreConfiguration(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Configuración de EF Core
+            services.EFCoreConfiguration(new EFCoreConfiguration(Environment.GetEnvironmentVariable("DEFAULT_CONNECTION")));
+
+            // Inyección de dependencias
             new ServiceCollectionInjector(services).ResolveServices();
             services.AddSwaggerGen(c =>
             {
@@ -45,19 +52,23 @@ namespace Broidery.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
+            // Habilitar middleware para servir swagger-ui (HTML, JS, CSS, etc.)
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Broidery API V1");
                 c.RoutePrefix = string.Empty;
             });
 
+            // Habilitar middleware para redirección HTTPS (opcional)
+            // app.UseHttpsRedirection();
 
-            //app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors();
+
+            // Habilitar CORS
+            app.UseCors("EnableConnection");
+
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

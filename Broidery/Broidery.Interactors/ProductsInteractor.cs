@@ -63,5 +63,10 @@ namespace Broidery.Interactors
         {
             await productRepository.EditProduct(new ProductUpdate(productDto));
         }
+
+        public async Task AddProduct(ProductRequestDto productDto)
+        {
+            await productRepository.AddProduct(new ProductUpdate(productDto));
+        }
     }
 }

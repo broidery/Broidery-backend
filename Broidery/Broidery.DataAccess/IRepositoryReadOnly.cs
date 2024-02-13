@@ -23,5 +23,6 @@ namespace Broidery.DataAccess
         Task<IProduct> GetProductById(int id);
         Task EditProductState(int id);
         Task EditProduct(IProduct product);
+        Task AddProduct(IProduct product);
     }
 }

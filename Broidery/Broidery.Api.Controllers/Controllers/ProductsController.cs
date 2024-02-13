@@ -60,5 +60,13 @@ namespace Broidery.Api.Controllers.Controllers
             await productsInteractor.EditProductState(idRequestDto.Id);
             return Ok();
         }
+
+        [EnableCors("EnableConnection")]
+        [HttpPost("add-product")]
+        public async Task<ActionResult> AddProduct([FromBody] ProductRequestDto productDto)
+        {
+            await productsInteractor.AddProduct(productDto);
+            return Ok();
+        }
     }
 }
