@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using System;
 
 namespace Broidery.Api
@@ -41,6 +44,20 @@ namespace Broidery.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Broidery API", Version = "v1" });
             });
             services.AddControllers();
+            var serviceName = "Broidery-backend";
+            var serviceVersion = "1.0.0";
+            services.AddOpenTelemetry()
+                .WithTracing(b =>
+                {
+                    b
+                    .AddSource(serviceName)
+                    .ConfigureResource(resource =>
+                        resource.AddService(
+                            serviceName: serviceName,
+                            serviceVersion: serviceVersion))
+                    .AddAspNetCoreInstrumentation()
+                    .AddConsoleExporter();
+                });
         }
         public void BaseConfigure(IApplicationBuilder app, IWebHostEnvironment env)
         {
