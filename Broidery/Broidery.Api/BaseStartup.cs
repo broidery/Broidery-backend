@@ -6,7 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using OpenTelemetry;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using System;
@@ -56,7 +57,12 @@ namespace Broidery.Api
                             serviceName: serviceName,
                             serviceVersion: serviceVersion))
                     .AddAspNetCoreInstrumentation()
-                    .AddConsoleExporter();
+                    .AddConsoleExporter()
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = new Uri(Environment.GetEnvironmentVariable("COLECTOR"));
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    });
                 });
         }
         public void BaseConfigure(IApplicationBuilder app, IWebHostEnvironment env)
