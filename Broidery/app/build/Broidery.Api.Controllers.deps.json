@@ -1,0 +1,61 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Broidery.Api.Controllers/1.0.0": {
+        "dependencies": {
+          "Broidery.DataTransferObjects": "1.0.0",
+          "Broidery.Interactors": "1.0.0"
+        },
+        "runtime": {
+          "Broidery.Api.Controllers.dll": {}
+        }
+      },
+      "Broidery.DataAccess/1.0.0": {
+        "runtime": {
+          "Broidery.DataAccess.dll": {}
+        }
+      },
+      "Broidery.DataTransferObjects/1.0.0": {
+        "runtime": {
+          "Broidery.DataTransferObjects.dll": {}
+        }
+      },
+      "Broidery.Interactors/1.0.0": {
+        "dependencies": {
+          "Broidery.DataAccess": "1.0.0",
+          "Broidery.DataTransferObjects": "1.0.0"
+        },
+        "runtime": {
+          "Broidery.Interactors.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Broidery.Api.Controllers/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Broidery.DataAccess/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Broidery.DataTransferObjects/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Broidery.Interactors/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
