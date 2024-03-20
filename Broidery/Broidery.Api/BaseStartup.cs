@@ -11,6 +11,8 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using System;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace Broidery.Api
 {
@@ -24,7 +26,6 @@ namespace Broidery.Api
 
         public void BaseConfigureServices(IServiceCollection services)
         {
-
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "EnableConnection",
@@ -45,8 +46,9 @@ namespace Broidery.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Broidery API", Version = "v1" });
             });
             services.AddControllers();
-            var serviceName = "Broidery-backend";
-            var serviceVersion = "1.0.0";
+            var serviceName = Environment.GetEnvironmentVariable("SERVICE_NAME");
+            var serviceVersion = Environment.GetEnvironmentVariable("SERVICE_VERSION");
+            var collector = Environment.GETEnvironmentVariable("COLLECTOR");
             services.AddOpenTelemetry()
                 .WithTracing(b =>
                 {
@@ -60,10 +62,21 @@ namespace Broidery.Api
                     .AddConsoleExporter()
                     .AddOtlpExporter(options =>
                     {
-                        options.Endpoint = new Uri(Environment.GetEnvironmentVariable("COLECTOR"));
+                        options.Endpoint = new Uri(collector);
                         options.Protocol = OtlpExportProtocol.Grpc;
                     });
                 });
+
+            // Configuración de logging en formato JSON
+            services.AddLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConfiguration(Configuration.GetSection("Logging"));
+                logging.AddJsonConsole(options =>
+                {
+                    options.TimestampFormat = "yyyy-MM-ddTHH:mm:ss.fffK"; // Formato personalizado para el timestamp
+                });
+            });
         }
         public void BaseConfigure(IApplicationBuilder app, IWebHostEnvironment env)
         {
