@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Broidery.Api.Controllers.Controllers
 {
@@ -11,6 +12,7 @@ namespace Broidery.Api.Controllers.Controllers
         [HttpGet("health-check")]
         public ActionResult HealthCheck()
         {
+            Console.WriteLine("Loki log validation");
             return Ok();
         }
     }

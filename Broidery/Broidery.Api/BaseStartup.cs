@@ -48,7 +48,6 @@ namespace Broidery.Api
             services.AddControllers();
             var serviceName = Environment.GetEnvironmentVariable("SERVICE_NAME");
             var serviceVersion = Environment.GetEnvironmentVariable("SERVICE_VERSION");
-            var collector = Environment.GETEnvironmentVariable("COLLECTOR");
             services.AddOpenTelemetry()
                 .WithTracing(b =>
                 {
@@ -62,7 +61,7 @@ namespace Broidery.Api
                     .AddConsoleExporter()
                     .AddOtlpExporter(options =>
                     {
-                        options.Endpoint = new Uri(collector);
+                        options.Endpoint = new Uri(Environment.GetEnvironmentVariable("COLLECTOR"));
                         options.Protocol = OtlpExportProtocol.Grpc;
                     });
                 });
