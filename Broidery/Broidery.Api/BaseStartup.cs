@@ -10,6 +10,7 @@ using OpenTelemetry.Exporter;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using OpenTelemetry.Logs;
 using System;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
@@ -61,7 +62,16 @@ namespace Broidery.Api
                     .AddConsoleExporter()
                     .AddOtlpExporter(options =>
                     {
-                        options.Endpoint = new Uri(Environment.GetEnvironmentVariable("COLLECTOR"));
+                        options.Endpoint = new Uri(Environment.GetEnvironmentVariable("TRACE_COLLECTOR"));
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    });
+                })
+                .WithMetrics(builder =>
+                {
+                    builder
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = new Uri(Environment.GetEnvironmentVariable("doc"));
                         options.Protocol = OtlpExportProtocol.Grpc;
                     });
                 });
